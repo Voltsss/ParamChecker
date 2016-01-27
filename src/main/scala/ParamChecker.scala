@@ -6,19 +6,6 @@ import scala.collection.mutable.ArrayBuffer
   * Created by yamasyo on 2016/01/25.
   */
 
-abstract class CheckRule
-case class GT_ab(leftName:String,rightName:String) extends CheckRule
-case class LT_ab(leftName:String,rightName:String) extends CheckRule
-
-
-/**
-  * Memo
-  * Cell.getCellType return
-  *   0:Numeric
-  *   1:String
-  *   2:FORMULA?
-  */
-
 object ParamChecker extends ExcelWorkBook with Checker{
   def main(args: Array[String]):Unit ={
 //    val c = check(
@@ -28,6 +15,41 @@ object ParamChecker extends ExcelWorkBook with Checker{
 //    )
 //    println("CHECK1: " +c)
 
+
+  }
+
+/**
+  * {
+  *   "commands":
+  *     [
+  *       {
+  *         "command" : "LEFT_greaterThan_RIGHT",
+  *         "file" : "your/file",
+  *         "sheetName" : "name",
+  *         "LEFT_name" : "nameLeft",
+  *         "RIGHT_name" : "nameRight"
+  *       },
+  *       {
+  *         "command" : "LEFT_equal_Number",
+  *         "file" : "your/file",
+  *         "sheetName" : "name",
+  *         "LEFT_name" : "nameIndex",
+  *         "number" : 0
+  *       },
+  *       {
+  *         "command" : "LEFT_equal_NumberOfSubFile",
+  *         "file" : "your/file",
+  *         "sheetName" : "name",
+  *         "LEFT_name" : "nameIndex",
+  *         "subFile" : "your/sub/file",
+  *         "subSheetName" : "subSheet",
+  *         "subDataName" : "subName",
+  *         "subDataOffsetDirection" : "Row",
+  *         "subDataOffset" : 1,
+  *       }
+  *
+  */
+  def commandParser() = {
 
   }
 

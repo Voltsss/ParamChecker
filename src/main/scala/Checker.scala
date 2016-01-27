@@ -2,8 +2,18 @@ import org.apache.poi.ss.usermodel.{Row, Cell, Sheet}
 
 import scala.collection.mutable.ArrayBuffer
 
+abstract class CheckRule
+case class GT_ab(leftName:String,rightName:String) extends CheckRule
+case class LT_ab(leftName:String,rightName:String) extends CheckRule
+
+
 /**
   * Created by yamasyo on 2016/01/27.
+  * Memo
+  * Cell.getCellType return
+  *   0:Numeric
+  *   1:String
+  *   2:FORMULA?
   */
 trait Checker {
   def check(checkFile:String,checkSheetName:String,checkRule:CheckRule): Boolean ={
