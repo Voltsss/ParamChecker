@@ -26,6 +26,9 @@ trait Checker {
 
   }
 
+  /**
+    * 大なり
+    */
   def greaterThan(sheet:Sheet, leftName:String,rightName:String): Boolean = {
     val leftCheckCol = getCheckCol(sheet, leftName, 5, 1)
     val rightCheckCol = getCheckCol(sheet, rightName, 5, 1)
@@ -38,14 +41,14 @@ trait Checker {
     }
   }
 
-  def getCheckCol(sheet: Sheet,name:String,searchRow:Int,dataOffset:Int):Option[Seq[Cell]] = {
+  private def getCheckCol(sheet: Sheet,name:String,searchRow:Int,dataOffset:Int):Option[Seq[Cell]] = {
     searchIndexCell(name,sheet,searchRow) match {
       case Some(c) => Some(getColumn(sheet, c.getColumnIndex, c.getRowIndex + dataOffset, sheet.getLastRowNum))
       case None => None
     }
   }
 
-  def getColumn(sheet:Sheet, colNo:Int, startRow:Int, lastRow:Int):Seq[Cell] = {
+  private def getColumn(sheet:Sheet, colNo:Int, startRow:Int, lastRow:Int):Seq[Cell] = {
     val cols : ArrayBuffer[Cell] = new ArrayBuffer[Cell]
     for(i:Int <- startRow to lastRow){
       cols += sheet.getRow(i).getCell(colNo)
@@ -56,7 +59,7 @@ trait Checker {
   /**
     * return Cell (NonNull,String)
     */
-  def searchIndexCell(indexName:String,sheet:Sheet,searchLine:Int):Option[Cell] = {
+  private def searchIndexCell(indexName:String,sheet:Sheet,searchLine:Int):Option[Cell] = {
     val firstNum = sheet.getFirstRowNum
     val searchNum = firstNum + searchLine
     val rs = Range(firstNum , searchNum).map(n => sheet.getRow(n))
@@ -66,12 +69,12 @@ trait Checker {
     if(hc.size != 0) Some(hc.head) else None
   }
 
-  def print2Unicode(s : String): Unit ={
+  private def print2Unicode(s : String): Unit ={
     s.foreach(c => print(f"0x$c%02X" + " "))
     println
   }
 
-  def row2List(r : Row) :List[Cell] = {
+  private def row2List(r : Row) :List[Cell] = {
     val li:ArrayBuffer[Cell] = new ArrayBuffer
     val it = r.cellIterator
     while(it.hasNext){
